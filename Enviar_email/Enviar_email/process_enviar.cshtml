@@ -1,0 +1,25 @@
+﻿<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+    </head>
+    <body>
+        @{
+          /*  string nome = Request["text_name"];
+            string email = Request["text_email"];
+            string assunto = Request["text_assunto"];
+            string message = Request["text_mensagem"];*/
+            try
+            {
+                WebMail.Send(to: "gsenguele@multicastservicos.co.mz", from: "goncalvessenguele@gmail.com", subject: "Assunto da mensagem", body: "Estou aprendendo a enviar email por C# ASP.net");
+                
+            }
+            catch (Exception ex)
+            {
+                <p>Error de envio @ex</p>
+            }
+            
+        }
+
+    </body>
+</html>

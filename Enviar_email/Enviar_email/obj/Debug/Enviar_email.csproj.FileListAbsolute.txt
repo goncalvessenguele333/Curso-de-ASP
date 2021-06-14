@@ -1,0 +1,17 @@
+C:\Users\User1\Desktop\Curso-de-ASP\Enviar_email\Enviar_email\bin\Enviar_email.dll.config
+C:\Users\User1\Desktop\Curso-de-ASP\Enviar_email\Enviar_email\bin\Enviar_email.dll
+C:\Users\User1\Desktop\Curso-de-ASP\Enviar_email\Enviar_email\bin\Enviar_email.pdb
+C:\Users\User1\Desktop\Curso-de-ASP\Enviar_email\Enviar_email\bin\Microsoft.Web.Infrastructure.dll
+C:\Users\User1\Desktop\Curso-de-ASP\Enviar_email\Enviar_email\bin\System.Web.Helpers.dll
+C:\Users\User1\Desktop\Curso-de-ASP\Enviar_email\Enviar_email\bin\System.Web.Razor.dll
+C:\Users\User1\Desktop\Curso-de-ASP\Enviar_email\Enviar_email\bin\System.Web.WebPages.Deployment.dll
+C:\Users\User1\Desktop\Curso-de-ASP\Enviar_email\Enviar_email\bin\System.Web.WebPages.dll
+C:\Users\User1\Desktop\Curso-de-ASP\Enviar_email\Enviar_email\bin\System.Web.WebPages.Razor.dll
+C:\Users\User1\Desktop\Curso-de-ASP\Enviar_email\Enviar_email\bin\System.Web.Helpers.xml
+C:\Users\User1\Desktop\Curso-de-ASP\Enviar_email\Enviar_email\bin\System.Web.Razor.xml
+C:\Users\User1\Desktop\Curso-de-ASP\Enviar_email\Enviar_email\bin\System.Web.WebPages.xml
+C:\Users\User1\Desktop\Curso-de-ASP\Enviar_email\Enviar_email\bin\System.Web.WebPages.Deployment.xml
+C:\Users\User1\Desktop\Curso-de-ASP\Enviar_email\Enviar_email\bin\System.Web.WebPages.Razor.xml
+C:\Users\User1\Desktop\Curso-de-ASP\Enviar_email\Enviar_email\obj\Debug\Enviar_email.csprojResolveAssemblyReference.cache
+C:\Users\User1\Desktop\Curso-de-ASP\Enviar_email\Enviar_email\obj\Debug\Enviar_email.dll
+C:\Users\User1\Desktop\Curso-de-ASP\Enviar_email\Enviar_email\obj\Debug\Enviar_email.pdb
