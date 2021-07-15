@@ -1,0 +1,41 @@
+﻿
+@{
+    Layout = "_Layout.cshtml";
+}
+
+<div class="container">
+    @{ 
+        bool apresentar_form = true;
+            if (IsPost)
+            {
+
+            }
+            if (apresentar_form)
+            {
+        <div class="row">
+            <div class="col-lg-6">
+
+            </div>
+            <div class="col-lg-6">
+                <form method="post" action="">
+                        <div class="form-group">
+                            <label>Nome do utilizador</label>
+                            <input type="text" class="form-control" name="text_utilizador" />
+
+                            <label>Password</label>
+                            <input type="password" class="form-control" name="text_password_1" />
+
+
+                            <label>Reintroduzir a password</label>
+                            <input type="password" class="form-control" name="text_password_2" />
+
+                        </div>
+                </form>
+            </div>
+
+        </div>
+            }
+    }
+
+</div>
+

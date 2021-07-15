@@ -1,0 +1,18 @@
+{
+  "version": 2,
+  "dgSpecHash": "ppWQoVHEly0T7g3Z6H/y/E6J0NB9kjgahrfS9YALc3ZVRaQi/BV6mVqbvpTTDQwaYJV5NEO+qoPejA+8iOsTJw==",
+  "success": false,
+  "projectFilePath": "C:\\Users\\User1\\Desktop\\Curso-de-ASP\\WebApplication2\\WebApplication2.csproj",
+  "expectedPackageFiles": [],
+  "logs": [
+    {
+      "code": "NU1101",
+      "level": "Error",
+      "message": "Não é possível encontrar o pacote Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation. Não existe nenhum pacote com esta ID nas origens: Microsoft Visual Studio Offline Packages",
+      "libraryId": "Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation",
+      "targetGraphs": [
+        "net5.0"
+      ]
+    }
+  ]
+}

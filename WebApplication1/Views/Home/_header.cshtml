@@ -1,0 +1,25 @@
+﻿
+<div class="header">
+    <div class="header_logotipo">
+        <img src="~/images/logo_22.png" />
+    </div>
+    <div class="header_links">
+        <a href="~/Views/Home/CriarConta.cshtml">~/Views/Home/CriarConta.cshtml</a>
+        @{
+            if (Request.IsAuthenticated == false)
+            {
+                <p>
+                   <a href="~/CriarConta.cshtml">Criar nova conta</a> |
+                    <a href="">Login</a>
+                </p>
+            }
+            else
+            {
+                <p><a href="">Logout</a></p>
+            }
+        }
+
+
+    </div>
+    <hr />
+</div>
