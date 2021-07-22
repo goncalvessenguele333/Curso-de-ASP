@@ -1,0 +1,85 @@
+﻿
+@model List<ControleDeEstoque.Web.Models.GrupoProdutoModel>
+@{
+    Layout = "~/Views/Shared/_Cadastro.cshtml";
+    ViewBag.Title = " grupo de produtos";
+}
+
+
+@section Style
+    {
+    <link href="~/Content/bootstrap-select.css" rel="stylesheet" />
+    <link href="~/Content/Cadastro/GrupoProduto.css" rel="stylesheet" />
+
+}
+
+@section tituloGrid{
+    <th>Nome</th>
+    <th>Activo</th>
+    <th>Acção</th>
+}
+
+@section linhaGrid{
+    @{
+
+        var linha = 0;
+        foreach (var item in Model)
+        {
+            linha++;
+            if (linha <= ViewBag.QuantidadeMaximaDeLinhaPorPagina)
+            {
+                var activo = (item.activo ? "Sim" : "Não");
+                <tr data-id="@item.id">
+
+                    <td>@item.nome</td>
+                    <td>@activo</td>
+                    <td>
+                        <a class="btn btn-primary btn_alterar" role="button"><i class="glyphicon glyphicon-pencil"></i>Alterar</a>
+                        <a class="btn btn-danger btn_excluir" role="button"><i class="glyphicon glyphicon-trash"></i>Excluir</a>
+                    </td>
+                </tr>
+            }
+            else
+            {
+                break;
+            }
+
+        }
+
+
+    }
+}
+
+
+
+@section camposCadastros{
+    <div class="row">
+        <div class="form-group">
+            @Html.Label("txt_nome", "Nome", new { @class = "col-md-3 control-label" })
+            <div class="col-md-6">
+                @Html.TextBox("txt_nome", null, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.Label("ckb_activo", "Activo", new { @class = "col-md-3 control-label" })
+            <div class="col-md-6">
+                @Html.CheckBox("ckb_activo")
+            </div>
+        </div>
+
+    </div>
+}
+@section Scripts{
+    <script src="~/Scripts/bootstrap-select.js"></script>
+    <script src="~/Scripts/Cadastro/GrupoProduto.js"></script>
+    <script>
+        var titulo_pagina = '@ViewBag.Title';
+        var url_exclusao_produto = '@Url.Action("ExcluirGrupoProduto", "CadGrupoProduto")';
+        var url_recuparar_produto = '@Url.Action("RecuperarGrupoProduto", "CadGrupoProduto")';
+        var url_grupo_produto_pagina = '@Url.Action("GrupoProdutoPagina", "CadGrupoProduto")';
+        var url_salvar_grupo_produto = '@Url.Action("salvarGrupoProduto", "CadGrupoProduto")';
+        var url_grupo_produto_p = '@Url.Action("GrupoProdutoPagina", "CadGrupoProduto")';
+    </script>
+}
+
+

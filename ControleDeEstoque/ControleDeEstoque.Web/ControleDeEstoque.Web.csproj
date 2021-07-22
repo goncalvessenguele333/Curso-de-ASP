@@ -124,8 +124,11 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Conexao\getConnection.cs" />
     <Compile Include="Controllers\CadastroController.cs" />
+    <Compile Include="Controllers\Cadastros\CadPerfilController.cs" />
+    <Compile Include="Controllers\Cadastros\CadUnidadeMedidaController.cs" />
+    <Compile Include="Controllers\Cadastros\CadUsuarioController.cs" />
+    <Compile Include="Controllers\Cadastros\CadGrupoProdutoController.cs" />
     <Compile Include="Controllers\ContaController.cs" />
     <Compile Include="Controllers\GraficoController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -134,16 +137,25 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\CriptoHelpers.cs" />
     <Compile Include="Models\GrupoProdutoModel.cs" />
     <Compile Include="Models\LoginViewModels.cs" />
+    <Compile Include="Models\PerfilModel.cs" />
+    <Compile Include="Models\UnidadeMedidaModel.cs" />
     <Compile Include="Models\UsuarioModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\bootstrap-select.css" />
+    <Content Include="Content\bootstrap-select.min.css" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Cadastro\GrupoProduto.css" />
+    <Content Include="Content\Cadastro\Perfil.css" />
+    <Content Include="Content\Cadastro\UnidadeMedida.css" />
+    <Content Include="Content\Cadastro\Usuario.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -152,9 +164,16 @@
     <Content Include="Scripts\bootbox.all.min.js" />
     <Content Include="Scripts\bootbox.js" />
     <Content Include="Scripts\bootbox.min.js" />
+    <Content Include="Scripts\bootstrap-select.js" />
+    <Content Include="Scripts\bootstrap-select.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
+    <Content Include="Scripts\Cadastro\CadBase.js" />
+    <Content Include="Scripts\Cadastro\GrupoProduto.js" />
+    <Content Include="Scripts\Cadastro\Perfil.js" />
+    <Content Include="Scripts\Cadastro\UnidadeMedida.js" />
+    <Content Include="Scripts\Cadastro\Usuario.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
     <Content Include="Scripts\jquery-3.4.1.slim.js" />
@@ -178,17 +197,15 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Sobre.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Cadastro\GrupoProdutos.cshtml" />
+    <Content Include="Views\CadGrupoProduto\Index.cshtml" />
     <Content Include="Views\Cadastro\MarcaProduto.cshtml" />
     <Content Include="Views\Cadastro\LocalProduto.cshtml" />
-    <Content Include="Views\Cadastro\UnidadeMedida.cshtml" />
     <Content Include="Views\Cadastro\Produto.cshtml" />
     <Content Include="Views\Cadastro\Pais.cshtml" />
     <Content Include="Views\Cadastro\Provincia.cshtml" />
     <Content Include="Views\Cadastro\Cidade.cshtml" />
     <Content Include="Views\Cadastro\Fornecedor.cshtml" />
-    <Content Include="Views\Cadastro\PerfisUsuario.cshtml" />
-    <Content Include="Views\Cadastro\Usuario.cshtml" />
+    <Content Include="Views\CadUsuario\Index.cshtml" />
     <Content Include="Views\Operacao\EntradaProduto.cshtml" />
     <Content Include="Views\Operacao\SaidaProduto.cshtml" />
     <Content Include="Views\Operacao\LancPerdaProduto.cshtml" />
@@ -198,6 +215,9 @@
     <Content Include="Views\Relatorio\PosicaoEstoque.cshtml" />
     <Content Include="Views\Relatorio\Ressuprimento.cshtml" />
     <Content Include="Views\Conta\Login.cshtml" />
+    <Content Include="Views\Shared\_Cadastro.cshtml" />
+    <Content Include="Views\CadUnidadeMedida\Index.cshtml" />
+    <Content Include="Views\CadPerfil\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

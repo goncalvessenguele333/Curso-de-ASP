@@ -3,85 +3,107 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.ComponentModel.DataAnnotations;
-using MySql.Data.MySqlClient;
-
+using System.Data.SqlClient;
+using System.Configuration;
+using System.Data;
 namespace ControleDeEstoque.Web.Models
 {
     public class GrupoProdutoModel
     {        public int id { get; set; }
         [Required(ErrorMessage="Informe o nome")]
         public string nome { get; set; }
-        public Boolean activo { get; set; }
+        public bool activo { get; set; }
 
 
-        public static List<GrupoProdutoModel> RecuperarLista()
+        public static List<GrupoProdutoModel> RecuperarLista(int pagina, int tamPagina)
         {
-            MySqlDataReader reader = null;
-            GrupoProdutoModel l;
-          
-            List<GrupoProdutoModel> ret = new  List<GrupoProdutoModel>();
+                
+            var ret = new  List<GrupoProdutoModel>();
 
-
-                using (var conn = Conexao.getConnection.Connection())
+            using (var conn = new  SqlConnection())
                 {
-                    conn.Open();
-                MySqlCommand cmd = new MySqlCommand();
+                conn.ConnectionString = ConfigurationManager.ConnectionStrings["Principal"].ConnectionString;
+                conn.Open();
+                using ( var cmd = new SqlCommand())
+                {
+                    cmd.Connection = conn;
 
-                    
-                        //cmd.Connection = conn;
+                    var pos = (pagina - 1) * tamPagina;
 
-                       string sqlselect = "Select * from tb_grupo_produto order by nome";
-                    cmd = new MySqlCommand(sqlselect, conn);
-                    reader = cmd.ExecuteReader();
-                        while (reader.Read())
+                    cmd.CommandText = string.Format(
+                        "Select * from tb_grupo_produto order by nome offset {0} rows fetch next {1} rows only",
+                        pos > 0 ? pos - 1 : 0, tamPagina);
+                 var  reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        ret.Add(new GrupoProdutoModel
                         {
-                        l = new GrupoProdutoModel();
+                            id = (int)reader["id"],
+                            nome =(string)reader["nome"],
+                            activo = (bool)reader["activo"]
+                    });
+                                                            
 
-                    l.id = (int.Parse(reader["id"].ToString()));
-                    l.nome = reader["nome"].ToString();
-                    l.activo =Boolean.Parse(reader["activo"].ToString());
-
-                    ret.Add(l);
-                           
-                        }
-                    
+                    }
                 }
+             }
                 return ret;
           }
 
+
+        public static int RecuperarQuantidade()
+        {
+            var ret = 0;
+
+            using (var conn = new SqlConnection())
+            {
+                conn.ConnectionString = ConfigurationManager.ConnectionStrings["Principal"].ConnectionString;
+                conn.Open();
+                using (var cmd = new SqlCommand())
+                {
+                    cmd.Connection = conn;
+
+                    cmd.CommandText = "Select count(*) from tb_grupo_produto";
+                       
+                   ret = (int)cmd.ExecuteScalar();                  
+                }
+            }
+            return ret;
+        }
+
+
+
         public static GrupoProdutoModel RecuperarPeloId(int id)
         {
-            MySqlDataReader reader = null;
-            GrupoProdutoModel l;
-            
-           GrupoProdutoModel ret = null;
+            GrupoProdutoModel ret =null;
 
-            using (var conn = Conexao.getConnection.Connection())
+            using (var conn = new SqlConnection())
             {
+                conn.ConnectionString = ConfigurationManager.ConnectionStrings["Principal"].ConnectionString;
                 conn.Open();
-                MySqlCommand cmd = new MySqlCommand();
-
-
-                //cmd.Connection = conn;
-
-                string sqlselect = string.Format("Select * from tb_grupo_produto where id={0}",id);
-                cmd = new MySqlCommand(sqlselect, conn);
-                reader = cmd.ExecuteReader();
-                if(reader.Read())
+                using (var cmd = new SqlCommand())
                 {
-                    l = new GrupoProdutoModel();
+                    cmd.Connection = conn;
 
-                    l.id = (int.Parse(reader["id"].ToString()));
-                    l.nome = reader["nome"].ToString();
-                    l.activo = Boolean.Parse(reader["activo"].ToString());
+                    cmd.CommandText = "Select * from tb_grupo_produto where id=@id";
+                    cmd.Parameters.Add("@id", SqlDbType.Int).Value = id;
+                    var reader = cmd.ExecuteReader();
+                    if (reader.Read())
+                    {
+                        ret = new GrupoProdutoModel
+                        {
+                            id = (int)reader["id"],
+                            nome = (string)reader["nome"],
+                            activo = (bool)reader["activo"]
+                        };
 
-                    ret=l;
 
+                    }
                 }
 
-            }
-            return ret;           
 
+            }
+            return ret;
         }
 
         public static bool ExcluirPeloId(int id)
@@ -90,17 +112,20 @@ namespace ControleDeEstoque.Web.Models
             var ret = false;
             if(RecuperarPeloId(id) != null)
             {
-                using (var conn = Conexao.getConnection.Connection())
+                using (var conn = new SqlConnection())
                 {
+                    conn.ConnectionString = ConfigurationManager.ConnectionStrings["Principal"].ConnectionString;
                     conn.Open();
-                    MySqlCommand cmd = new MySqlCommand();
 
+                    using (var cmd = new SqlCommand())
+                    {
+                        cmd.Connection = conn;
+                        cmd.CommandText ="delete from tb_grupo_produto where id=@id";
+                        cmd.Parameters.Add("@id", SqlDbType.Int).Value = id;
+                        ret = (cmd.ExecuteNonQuery() > 0);
+                    }
 
-                    //cmd.Connection = conn;
-
-                    string sqlselect = string.Format("delete from tb_grupo_produto where id={0}", id);
-                    cmd = new MySqlCommand(sqlselect, conn);
-                    ret = (cmd.ExecuteNonQuery() > 0);
+                    
 
                 }              
 
@@ -113,30 +138,42 @@ namespace ControleDeEstoque.Web.Models
         {
             var ret = 0;
             var model = RecuperarPeloId(this.id);
-           
-                using (var conn = Conexao.getConnection.Connection())
+
+            using (var conn =new SqlConnection())
+            {
+                conn.ConnectionString = ConfigurationManager.ConnectionStrings["Principal"].ConnectionString;
+                conn.Open();
+                using (var cmd = new SqlCommand())
                 {
-                    conn.Open();
-                    MySqlCommand cmd = new MySqlCommand();
 
-                if (model == null)
-                {
+                    cmd.Connection = conn;
 
-                    string sqlselect = string.Format("insert into tb_grupo_produto (nome, activo)values ('{0}',{1}); LAST_INSERT_ID()", this.nome, this.activo ? 0 : 1 );
-                    cmd = new MySqlCommand(sqlselect, conn);
-                    ret = (int)cmd.ExecuteScalar();
-
-                }
-                else {
-                    string sqlselect = string.Format("update tb_grupo_produto set nome='{1}', activo={2} where id={0}", this.id, this.nome, this.activo ? 0 : 1);
-                    cmd = new MySqlCommand(sqlselect, conn);
-                    if (cmd.ExecuteNonQuery() > 0)
+                    if (model == null)
                     {
-                        ret = this.id;
+
+                        cmd.CommandText = "insert into tb_grupo_produto (nome, activo)values (@nome,@activo); select convert(int, SCOPE_IDENTITY())";
+                        cmd.Parameters.Add("@nome", SqlDbType.VarChar).Value = this.nome;
+                        cmd.Parameters.Add("@activo", SqlDbType.VarChar).Value = (this.activo ? 1 : 0);
+                               
+                        ret = (int)cmd.ExecuteScalar();
+
+                    }
+                    else
+                    {
+                        cmd.CommandText = "update tb_grupo_produto set nome=@nome, activo=@activo where id=@id";
+                        cmd.Parameters.Add("@nome", SqlDbType.VarChar).Value = this.nome;
+                        cmd.Parameters.Add("@activo", SqlDbType.VarChar).Value = (this.activo ? 1 : 0);
+                        cmd.Parameters.Add("@id", SqlDbType.Int).Value = this.id;
+                        if (cmd.ExecuteNonQuery() > 0)
+                        {
+                            ret = this.id;
+                        }
                     }
                 }
-
             }
+            
+
+            
             return ret;
 
         }

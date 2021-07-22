@@ -26,23 +26,30 @@ namespace ControleDeEstoque.Web.Controllers
                 return View(login);
             }
 
-            var achou = UsuarioModel.validarUsuario(login.Usuario,login.Senha);
+            var usuario = UsuarioModel.validarUsuario(login.Usuario,login.Senha);
 
-            if (achou)
+            if (usuario !=null)
             {
-                FormsAuthentication.SetAuthCookie(login.Usuario, login.LembrarMe);
+                //FormsAuthentication.SetAuthCookie(usuario.nome, login.LembrarMe);
+
+               var ticket= FormsAuthentication.Encrypt(new FormsAuthenticationTicket(
+                   1, usuario.nome, DateTime.Now, DateTime.Now.AddHours(12), login.LembrarMe, PerfilModel.RecuperarPeloId(usuario.idPerfil).nome));
+
+                var cookie = new HttpCookie(FormsAuthentication.FormsCookieName, ticket);
+                Response.Cookies.Add(cookie);
+
                 if (Url.IsLocalUrl(returnUrl))
                 {
                     return Redirect(returnUrl);
                 }
                 else
                 {
-                    RedirectToAction("Index", "Home");
+                    return RedirectToAction("Index", "Home");
                 }
             }
             else
             {
-                ModelState.AddModelError("", "Username or password incorrecto");
+                ModelState.AddModelError("","Usarname or Password incorrecto!");
             }
 
             return View(login);
