@@ -1,39 +1,40 @@
-﻿
-@model List<ControleDeEstoque.Web.Models.UsuarioModel>
+﻿@model List<ControleDeEstoque.Web.Models.PaisModel>
 @{
     Layout = "~/Views/Shared/_Cadastro.cshtml";
-    ViewBag.Title = "Usuarios";
+    ViewBag.Title = "Cadastro de Países";
+
     ViewBag.Lista = Model;
 }
-
 
 
 @section Style
     {
     <link href="~/Content/bootstrap-select.css" rel="stylesheet" />
-    <link href="~/Content/Cadastro/Usuario.css" rel="stylesheet" />
+    <link href="~/Content/Cadastro/CadPais.css" rel="stylesheet" />
 
 }
 
 @section tituloGrid{
     <th>Nome</th>
-    <th>Login</th>
+    <th>Codigo do país</th>
+    <th>Activo</th>
     <th>Acção</th>
 }
 
 @section linhaGrid{
-
     @{
+
         var linha = 0;
         foreach (var item in Model)
         {
             linha++;
             if (linha <= ViewBag.QuantidadeMaximaDeLinhaPorPagina)
             {
+                var activo = (item.activo ? "Sim" : "Não");
                 <tr data-id="@item.id">
-
                     <td>@item.nome</td>
-                    <td>@item.login</td>
+                    <td>@item.codigo</td>
+                    <td>@activo</td>
                     <td>
                         <a class="btn btn-primary btn_alterar" role="button"><i class="glyphicon glyphicon-pencil"></i>Alterar</a>
                         <a class="btn btn-danger btn_excluir" role="button"><i class="glyphicon glyphicon-trash"></i>Excluir</a>
@@ -46,9 +47,12 @@
             }
 
         }
-    }
 
+
+    }
 }
+
+
 
 @section camposCadastros{
     <div class="row">
@@ -58,47 +62,31 @@
                 @Html.TextBox("txt_nome", null, new { @class = "form-control" })
             </div>
         </div>
-
         <div class="form-group">
-            @Html.Label("txt_User", "Login", new { @class = "col-md-3 control-label" })
+            @Html.Label("txt_codigo_p", "Código do país", new { @class = "col-md-3 control-label" })
             <div class="col-md-6">
-                @Html.TextBox("txt_User", null, new { @class = "form-control" })
+                @Html.TextBox("txt_codigo_p", null, new { @class = "form-control" })
             </div>
         </div>
         <div class="form-group">
-            @Html.Label("txt_senha", "Senha", new { @class = "col-md-3 control-label" })
+            @Html.Label("ckb_activo", "Activo", new { @class = "col-md-3 control-label" })
             <div class="col-md-6">
-                @Html.TextBox("txt_senha", null, new { @class = "form-control", type = "password" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.Label("txt_perfil", "Perfil", new { @class = "col-md-3 control-label" })
-            <div class="col-md-6">
-                @Html.DropDownList("ddl_perfil", new SelectList(ViewBag.ListaPeril,"id","nome"), new { @class = "form-control", type = "password" })
+                @Html.CheckBox("ckb_activo")
             </div>
         </div>
 
     </div>
 }
-
-
 @section Scripts{
     <script src="~/Scripts/bootstrap-select.js"></script>
-    <script src="~/Scripts/Cadastro/Usuario.js"></script>
-
+    <script src="~/Scripts/Cadastro/CadPais.js"></script>
     <script>
         var titulo_pagina = '@ViewBag.Title';
-        var url_exclusao_produto= '@Url.Action("ExcluirUsuario", "CadUsuario")';
-        var url_recuparar_produto = '@Url.Action("RecuperarUsuario", "CadUsuario")';
-        var url_grupo_produto_pagina = '@Url.Action("GrupoProdutoPagina", "CadUsuario")';
-        var url_salvar_grupo_produto = '@Url.Action("salvarUsuario", "CadUsuario")';
-        var url_grupo_produto_p = '@Url.Action("GrupoProdutoPagina", "CadUsuario")';
-
-        var senha_p = '@ViewBag.senhaPadrao';
+        var url_exclusao_produto = '@Url.Action("ExcluirCadPais", "CadPais")';
+        var url_recuparar_produto = '@Url.Action("RecuperarCadPais", "CadPais")';
+        var url_grupo_produto_pagina = '@Url.Action("CadPaisPagina", "CadPais")';
+        var url_salvar_grupo_produto = '@Url.Action("salvarCadPais", "CadPais")';
+         var url_filtro_change = '@Url.Action("CadPaisPagina", "CadPais")';
+        var url_grupo_produto_p = '@Url.Action("CadPaisPagina", "CadPais")';
     </script>
 }
-
-
-
-

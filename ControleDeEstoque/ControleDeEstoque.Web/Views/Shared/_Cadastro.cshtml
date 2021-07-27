@@ -1,6 +1,9 @@
 ﻿@{
     Layout = "~/Views/Shared/_Layout.cshtml";
 
+    var lista = ViewBag.Lista;
+    var titulo = ViewBag.Title;
+
 }
 
 @RenderSection("Style", true)
@@ -14,13 +17,27 @@
 
         <div id="cabecalho_grid" class="row">
             <div class="col-md-12">
-                <a id="btn_incluir" class="btn btn-success" role="button"><i class="glyphicon glyphicon-plus"></i>Incluir</a>
-                @Html.DropDownList("del_tam_pag", (SelectList)ViewBag.ListaTamPag, new { @class = "selectpicker" })
+
+                <div class="row">
+                    <div class="col-md-2">
+
+                        <a id="btn_incluir" class="btn btn-success" role="button"><i class="glyphicon glyphicon-plus"></i>Incluir</a>
+                    </div>
+                    <div class="col-md-4">
+                        @Html.DropDownList("del_tam_pag", (SelectList)ViewBag.ListaTamPag, new { @class = "selectpicker" })
+                    </div>
+                    <div class="col-md-6">
+                        @Html.TextBox("txt_filtro", null, new { @class = "form-control" })
+                    </div>
+
+                </div>
+
+               
             </div>
         </div>
         <div class="row">
             <div class="col-md-12">
-                <table id="grid_cadastro" class="table table-bordered table-striped table-hover">
+                <table id="grid_cadastro" class="table table-bordered table-striped table-hover @Html.Raw(lista == null || lista.Count == 0 ? "invisivel" : "")">
                     <thead>
                         <tr>
                             @RenderSection("tituloGrid", true)
@@ -30,6 +47,9 @@
                         @RenderSection("linhaGrid", true)
                     </tbody>
                 </table>
+                <div id="mensagem_grid" @Html.Raw(lista != null && lista.Count > 0 ? "class=\"invisivel\"" : "")>
+                    Nenhum registro em @titulo
+                </div>
 
             </div>
 

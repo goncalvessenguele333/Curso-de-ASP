@@ -1,8 +1,7 @@
-﻿
-@model List<ControleDeEstoque.Web.Models.UnidadeMedidaModel>
+﻿@model List<ControleDeEstoque.Web.Models.LocalArmazenamtoModel>
     @{
         Layout = "~/Views/Shared/_Cadastro.cshtml";
-        ViewBag.Title = " Unidade de medidas";
+        ViewBag.Title = " Cadastro de Local de armazenamento do produto";
         ViewBag.Lista = Model;
     }
 
@@ -10,13 +9,12 @@
     @section Style
     {
         <link href="~/Content/bootstrap-select.css" rel="stylesheet" />
-        <link href="~/Content/Cadastro/UnidadeMedida.css" rel="stylesheet" />
+        <link href="~/Content/Cadastro/CadLocalArmazenamto.css" rel="stylesheet" />
 
     }
 
     @section tituloGrid{
         <th>Nome</th>
-        <th>Sigla</th>
         <th>Activo</th>
         <th>Acção</th>
     }
@@ -34,7 +32,6 @@
                     <tr data-id="@item.id">
 
                         <td>@item.nome</td>
-                        <td>@item.sigla</td>
                         <td>@activo</td>
                         <td>
                             <a class="btn btn-primary btn_alterar" role="button"><i class="glyphicon glyphicon-pencil"></i>Alterar</a>
@@ -64,12 +61,6 @@
                 </div>
             </div>
             <div class="form-group">
-                @Html.Label("txt_sigla", "Sigla", new { @class = "col-md-3 control-label" })
-                <div class="col-md-6">
-                    @Html.TextBox("txt_sigla", null, new { @class = "form-control" })
-                </div>
-            </div>
-            <div class="form-group">
                 @Html.Label("ckb_activo", "Activo", new { @class = "col-md-3 control-label" })
                 <div class="col-md-6">
                     @Html.CheckBox("ckb_activo")
@@ -80,15 +71,14 @@
     }
     @section Scripts{
         <script src="~/Scripts/bootstrap-select.js"></script>
-        <script src="~/Scripts/Cadastro/UnidadeMedida.js"></script>
+        <script src="~/Scripts/Cadastro/CadLocalArmazenamto.js"></script>
         <script>
         var titulo_pagina = '@ViewBag.Title';
-        var url_exclusao_produto = '@Url.Action("ExcluirUnidadeMedida", "CadUnidadeMedida")';
-        var url_recuparar_produto = '@Url.Action("RecuperarUnidadeMedida", "CadUnidadeMedida")';
-        var url_grupo_produto_pagina = '@Url.Action("UnidadeMedidaPagina", "CadUnidadeMedida")';
-        var url_salvar_grupo_produto = '@Url.Action("salvarUnidadeMedida", "CadUnidadeMedida")';
-        var url_grupo_produto_p = '@Url.Action("UnidadeMedidaPagina", "CadUnidadeMedida")';
+        var url_exclusao_produto = '@Url.Action("ExcluirCadLocalArmazenamto", "CadLocalArmazenamto")';
+        var url_recuparar_produto = '@Url.Action("RecuperarCadLocalArmazenamto", "CadLocalArmazenamto")';
+        var url_grupo_produto_pagina = '@Url.Action("CadLocalArmazenamtoPagina", "CadLocalArmazenamto")';
+        var url_salvar_grupo_produto = '@Url.Action("salvarCadLocalArmazenamto", "CadLocalArmazenamto")';
+        var url_grupo_produto_p = '@Url.Action("CadLocalArmazenamtoPagina", "3CadLocalArmazenamto")';
         </script>
     }
-
 

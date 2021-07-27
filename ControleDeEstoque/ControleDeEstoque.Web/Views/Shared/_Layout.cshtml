@@ -1,12 +1,15 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - Controle de estoque</title>
     @Styles.Render("~/Content/css")
+    <link href="~/Content/sweetalert2.css" rel="stylesheet" />
+    <link href="~/Content/sweetalert2.min.css" rel="stylesheet" />
     @Scripts.Render("~/bundles/modernizr")
+
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -30,14 +33,14 @@
                             </a>
                             <ul class="dropdown-menu">
                                 <li>@Html.ActionLink("Grupo de produtos", "Index", "CadGrupoProduto")</li>
-                                <li>@Html.ActionLink("Marca de produtos", "MarcaProduto", "Cadastro")</li>
-                                <li>@Html.ActionLink("Locais de armazenamento", "LocalProduto", "Cadastro")</li>
+                                <li>@Html.ActionLink("Marca de produtos", "Index", "CadMarcaProduto")</li>
+                                <li>@Html.ActionLink("Locais de armazenamento", "Index", "CadLocalArmazenamto")</li>
                                 <li>@Html.ActionLink("Unidades de medidas", "Index", "CadUnidadeMedida")</li>
                                 <li>@Html.ActionLink("Produto", "Produto", "Cadastro")</li>
                                 <li class="divider"></li>
-                                <li>@Html.ActionLink("Países", "Pais", "Cadastro")</li>
-                                <li>@Html.ActionLink("Províncias", "Provincia", "Cadastro")</li>
-                                <li>@Html.ActionLink("Cidades", "Cidade", "Cadastro")</li>
+                                <li>@Html.ActionLink("Países", "Index", "CadPais")</li>
+                                <li>@Html.ActionLink("Províncias", "Index", "CadProvincias")</li>
+                                <li>@Html.ActionLink("Distritos", "Index", "CadDistrito")</li>
                                 <li>@Html.ActionLink("Fornecedores", "Fornecedor", "Cadastro")</li>
                                 <li class="divider"></li>
                                 <li>@Html.ActionLink("Perfis de usuáriso", "Index", "CadPerfil")</li>
@@ -111,6 +114,9 @@
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
+<script src="~/Scripts/sweetalert2.all.js"></script>
+<script src="~/Scripts/sweetalert2.all.min.js"></script>
+
     @RenderSection("scripts", required: false)
 </body>
 </html>

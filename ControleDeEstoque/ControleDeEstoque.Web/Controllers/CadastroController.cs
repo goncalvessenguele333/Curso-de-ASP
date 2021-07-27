@@ -13,17 +13,7 @@ namespace ControleDeEstoque.Web.Controllers
         private const int _quantidadeMaximaDeLinhaPorPagina = 5;
         // GET: Cadastro
            
-        [Authorize]
-        public ActionResult MarcaProduto()
-        {
-            return View();
-        }
-        [Authorize]
-        public ActionResult LocalProduto()
-        {
-            return View();
-        }
-       
+               
         [Authorize]
         public ActionResult Produto()
         {

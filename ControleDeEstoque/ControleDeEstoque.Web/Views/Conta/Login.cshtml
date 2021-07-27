@@ -2,7 +2,7 @@
 @{
     ViewBag.Title = "Login";
 }
-
+<link href="~/Content/Cadastro/Login.css" rel="stylesheet" />
 <div class="container-login">
     <div class="row">
     <h3 class="titulo">Entrar no sistema</h3>    
@@ -15,7 +15,7 @@
                 <div class="form-group">
                     @Html.LabelFor(m => m.Usuario, new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
-                        @Html.TextBoxFor(m => m.Usuario, new { @class = "form-control" })
+                        @Html.TextBoxFor(m => m.Usuario, new { @class = "form-control input" })
                         @Html.ValidationMessageFor(m => m.Usuario,"", new { @class = "tex-danger" })
                     </div>
 
@@ -24,7 +24,7 @@
                 <div class="form-group">
                     @Html.LabelFor(m => m.Senha, new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
-                        @Html.PasswordFor(m => m.Senha, new { @class = "form-control" })
+                        @Html.PasswordFor(m => m.Senha, new { @class = "form-control input" })
                         @Html.ValidationMessageFor(m => m.Usuario,"", new { @class = "tex-danger" })
                     </div>
 

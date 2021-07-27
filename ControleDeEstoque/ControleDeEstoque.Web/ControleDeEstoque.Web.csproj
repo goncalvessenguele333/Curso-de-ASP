@@ -125,10 +125,15 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\CadastroController.cs" />
+    <Compile Include="Controllers\Cadastros\CadLocalArmazenamtoController.cs" />
+    <Compile Include="Controllers\Cadastros\CadMarcaProdutoController.cs" />
     <Compile Include="Controllers\Cadastros\CadPerfilController.cs" />
     <Compile Include="Controllers\Cadastros\CadUnidadeMedidaController.cs" />
     <Compile Include="Controllers\Cadastros\CadUsuarioController.cs" />
     <Compile Include="Controllers\Cadastros\CadGrupoProdutoController.cs" />
+    <Compile Include="Controllers\Cadastros\CadPaisController.cs" />
+    <Compile Include="Controllers\Cadastros\CadProvinciasController.cs" />
+    <Compile Include="Controllers\Cadastros\CadDistritoController.cs" />
     <Compile Include="Controllers\ContaController.cs" />
     <Compile Include="Controllers\GraficoController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -138,6 +143,11 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\CriptoHelpers.cs" />
+    <Compile Include="Models\DistritoModel.cs" />
+    <Compile Include="Models\LocalArmazenamtoModel.cs" />
+    <Compile Include="Models\MarcaProdutoModel.cs" />
+    <Compile Include="Models\PaisModel.cs" />
+    <Compile Include="Models\ProvinciasModel.cs" />
     <Compile Include="Models\GrupoProdutoModel.cs" />
     <Compile Include="Models\LoginViewModels.cs" />
     <Compile Include="Models\PerfilModel.cs" />
@@ -152,10 +162,18 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Cadastro\CadDistrito.css" />
+    <Content Include="Content\Cadastro\CadLocalArmazenamto.css" />
+    <Content Include="Content\Cadastro\CadMarcaProduto.css" />
+    <Content Include="Content\Cadastro\CadPais.css" />
+    <Content Include="Content\Cadastro\CadProvincias.css" />
     <Content Include="Content\Cadastro\GrupoProduto.css" />
+    <Content Include="Content\Cadastro\Login.css" />
     <Content Include="Content\Cadastro\Perfil.css" />
     <Content Include="Content\Cadastro\UnidadeMedida.css" />
     <Content Include="Content\Cadastro\Usuario.css" />
+    <Content Include="Content\sweetalert2.css" />
+    <Content Include="Content\sweetalert2.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -170,6 +188,11 @@
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\Cadastro\CadBase.js" />
+    <Content Include="Scripts\Cadastro\CadDistrito.js" />
+    <Content Include="Scripts\Cadastro\CadLocalArmazenamto.js" />
+    <Content Include="Scripts\Cadastro\CadMarcaProduto.js" />
+    <Content Include="Scripts\Cadastro\CadPais.js" />
+    <Content Include="Scripts\Cadastro\CadProvincias.js" />
     <Content Include="Scripts\Cadastro\GrupoProduto.js" />
     <Content Include="Scripts\Cadastro\Perfil.js" />
     <Content Include="Scripts\Cadastro\UnidadeMedida.js" />
@@ -184,6 +207,8 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\sweetalert2.all.js" />
+    <Content Include="Scripts\sweetalert2.all.min.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -198,8 +223,6 @@
     <Content Include="Views\Home\Sobre.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\CadGrupoProduto\Index.cshtml" />
-    <Content Include="Views\Cadastro\MarcaProduto.cshtml" />
-    <Content Include="Views\Cadastro\LocalProduto.cshtml" />
     <Content Include="Views\Cadastro\Produto.cshtml" />
     <Content Include="Views\Cadastro\Pais.cshtml" />
     <Content Include="Views\Cadastro\Provincia.cshtml" />
@@ -218,6 +241,11 @@
     <Content Include="Views\Shared\_Cadastro.cshtml" />
     <Content Include="Views\CadUnidadeMedida\Index.cshtml" />
     <Content Include="Views\CadPerfil\Index.cshtml" />
+    <Content Include="Views\CadMarcaProduto\Index.cshtml" />
+    <Content Include="Views\CadLocalArmazenamto\Index.cshtml" />
+    <Content Include="Views\CadPais\Index.cshtml" />
+    <Content Include="Views\CadProvincias\Index.cshtml" />
+    <Content Include="Views\CadDistrito\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,33 +1,38 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.ComponentModel.DataAnnotations;
-using System.Data.SqlClient;
 using System.Configuration;
 using System.Data;
+using System.Data.SqlClient;
+using System.Linq;
+using System.Web;
+
 namespace ControleDeEstoque.Web.Models
 {
-    public class GrupoProdutoModel
-    {        
+    public class DistritoModel
+    {
         public int id { get; set; }
-        [Required(ErrorMessage="Informe o nome")]
+        [Required(ErrorMessage = "Informe o nome")]
         public string nome { get; set; }
         public bool activo { get; set; }
+        [Required(ErrorMessage = "Informe o província")]
+        public int id_provincia{ get; set; }
+        [Required(ErrorMessage = "Informe o país")]
+        public int id_pais { get; set; }
 
 
-        public static List<GrupoProdutoModel> RecuperarLista(int pagina, int tamPagina, string filtro = "")
+        public static List<DistritoModel> RecuperarLista(int pagina, int tamPagina, string filtro = "")
         {
-                
-            var ret = new  List<GrupoProdutoModel>();
 
-            using (var conn = new  SqlConnection())
-                {
+            var ret = new List<DistritoModel>();
+
+            using (var conn = new SqlConnection())
+            {
                 conn.ConnectionString = ConfigurationManager.ConnectionStrings["Principal"].ConnectionString;
                 conn.Open();
-                using ( var cmd = new SqlCommand())
+                using (var cmd = new SqlCommand())
                 {
-                   
+
                     var pos = (pagina - 1) * tamPagina;
 
                     var filtroWhere = "";
@@ -39,27 +44,29 @@ namespace ControleDeEstoque.Web.Models
                     cmd.Connection = conn;
 
                     cmd.CommandText = string.Format(
-                        "Select * from tb_grupo_produto "+
+                        "Select * from tb_distrito " +
                          filtroWhere +
                         "order by nome offset {0} rows fetch next {1} rows only",
                         pos > 0 ? pos - 1 : 0, tamPagina);
 
-                   var  reader = cmd.ExecuteReader();
+                    var reader = cmd.ExecuteReader();
                     while (reader.Read())
                     {
-                        ret.Add(new GrupoProdutoModel
+                        ret.Add(new  DistritoModel
                         {
                             id = (int)reader["id"],
-                            nome =(string)reader["nome"],
-                            activo = (bool)reader["activo"]
-                    });
-                                                            
+                            nome = (string)reader["nome"],
+                            activo = (bool)reader["activo"],
+                            id_pais = (int)reader["id_pais"],
+                            id_provincia = (int)reader["id_provincia"]
+                        });
+
 
                     }
                 }
-             }
-                return ret;
-          }
+            }
+            return ret;
+        }
 
 
         public static int RecuperarQuantidade()
@@ -74,9 +81,9 @@ namespace ControleDeEstoque.Web.Models
                 {
                     cmd.Connection = conn;
 
-                    cmd.CommandText = "Select count(*) from tb_grupo_produto";
-                       
-                   ret = (int)cmd.ExecuteScalar();                  
+                    cmd.CommandText = "Select count(*) from tb_distrito";
+
+                    ret = (int)cmd.ExecuteScalar();
                 }
             }
             return ret;
@@ -84,9 +91,9 @@ namespace ControleDeEstoque.Web.Models
 
 
 
-        public static GrupoProdutoModel RecuperarPeloId(int id)
+        public static  DistritoModel RecuperarPeloId(int id)
         {
-            GrupoProdutoModel ret =null;
+             DistritoModel ret = null;
 
             using (var conn = new SqlConnection())
             {
@@ -96,32 +103,32 @@ namespace ControleDeEstoque.Web.Models
                 {
                     cmd.Connection = conn;
 
-                    cmd.CommandText = "Select * from tb_grupo_produto where id=@id";
+                    cmd.CommandText = "Select * from tb_distrito where id=@id";
                     cmd.Parameters.Add("@id", SqlDbType.Int).Value = id;
                     var reader = cmd.ExecuteReader();
                     if (reader.Read())
                     {
-                        ret = new GrupoProdutoModel
+                        ret = new  DistritoModel
                         {
                             id = (int)reader["id"],
                             nome = (string)reader["nome"],
-                            activo = (bool)reader["activo"]
+                            activo = (bool)reader["activo"],
+                            id_pais = (int)reader["id_pais"],
+                            id_provincia = (int)reader["id_provincia"]
                         };
 
 
                     }
                 }
-
-
             }
             return ret;
         }
 
         public static bool ExcluirPeloId(int id)
         {
-         
+
             var ret = false;
-            if(RecuperarPeloId(id) != null)
+            if (RecuperarPeloId(id) != null)
             {
                 using (var conn = new SqlConnection())
                 {
@@ -131,14 +138,14 @@ namespace ControleDeEstoque.Web.Models
                     using (var cmd = new SqlCommand())
                     {
                         cmd.Connection = conn;
-                        cmd.CommandText ="delete from tb_grupo_produto where id=@id";
+                        cmd.CommandText = "delete from tb_distrito where id=@id";
                         cmd.Parameters.Add("@id", SqlDbType.Int).Value = id;
                         ret = (cmd.ExecuteNonQuery() > 0);
                     }
 
-                    
 
-                }              
+
+                }
 
             }
             return ret;
@@ -150,7 +157,7 @@ namespace ControleDeEstoque.Web.Models
             var ret = 0;
             var model = RecuperarPeloId(this.id);
 
-            using (var conn =new SqlConnection())
+            using (var conn = new SqlConnection())
             {
                 conn.ConnectionString = ConfigurationManager.ConnectionStrings["Principal"].ConnectionString;
                 conn.Open();
@@ -162,18 +169,22 @@ namespace ControleDeEstoque.Web.Models
                     if (model == null)
                     {
 
-                        cmd.CommandText = "insert into tb_grupo_produto (nome, activo)values (@nome,@activo); select convert(int, SCOPE_IDENTITY())";
+                        cmd.CommandText = "insert into tb_distrito (nome, activo,id_pais,id_provincia)values (@nome,@activo,@id_pais,@id_provincia); select convert(int, SCOPE_IDENTITY())";
                         cmd.Parameters.Add("@nome", SqlDbType.VarChar).Value = this.nome;
                         cmd.Parameters.Add("@activo", SqlDbType.VarChar).Value = (this.activo ? 1 : 0);
-                               
+                        cmd.Parameters.Add("@id_pais", SqlDbType.Int).Value = this.id_pais;
+                        cmd.Parameters.Add("@id_provincia", SqlDbType.Int).Value = this.id_provincia;
+
                         ret = (int)cmd.ExecuteScalar();
 
                     }
                     else
                     {
-                        cmd.CommandText = "update tb_grupo_produto set nome=@nome, activo=@activo where id=@id";
+                        cmd.CommandText = "update tb_distrito set nome=@nome, activo=@activo,id_pais=@id_pais,id_provincia=@id_provincia where id=@id";
                         cmd.Parameters.Add("@nome", SqlDbType.VarChar).Value = this.nome;
                         cmd.Parameters.Add("@activo", SqlDbType.VarChar).Value = (this.activo ? 1 : 0);
+                        cmd.Parameters.Add("@id_pais", SqlDbType.Int).Value = this.id_pais;
+                        cmd.Parameters.Add("@id_provincia", SqlDbType.Int).Value = this.id_provincia;
                         cmd.Parameters.Add("@id", SqlDbType.Int).Value = this.id;
                         if (cmd.ExecuteNonQuery() > 0)
                         {
@@ -182,12 +193,8 @@ namespace ControleDeEstoque.Web.Models
                     }
                 }
             }
-            
 
-            
             return ret;
-
         }
-
     }
 }

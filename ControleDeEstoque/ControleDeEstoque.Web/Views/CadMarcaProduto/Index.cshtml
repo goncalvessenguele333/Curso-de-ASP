@@ -1,9 +1,8 @@
 ﻿
-@model List<ControleDeEstoque.Web.Models.GrupoProdutoModel>
+@model List<ControleDeEstoque.Web.Models.MarcaProdutoModel>
 @{
     Layout = "~/Views/Shared/_Cadastro.cshtml";
-    ViewBag.Title = "Cadastro de grupo de produtos";
-
+    ViewBag.Title = " Marca de produto";
     ViewBag.Lista = Model;
 }
 
@@ -11,7 +10,7 @@
 @section Style
     {
     <link href="~/Content/bootstrap-select.css" rel="stylesheet" />
-    <link href="~/Content/Cadastro/GrupoProduto.css" rel="stylesheet" />
+    <link href="~/Content/Cadastro/CadMarcaProduto.css" rel="stylesheet" />
 
 }
 
@@ -73,16 +72,13 @@
 }
 @section Scripts{
     <script src="~/Scripts/bootstrap-select.js"></script>
-    <script src="~/Scripts/Cadastro/GrupoProduto.js"></script>
+    <script src="~/Scripts/Cadastro/CadMarcaProduto.js"></script>
     <script>
         var titulo_pagina = '@ViewBag.Title';
-        var url_exclusao_produto = '@Url.Action("ExcluirGrupoProduto", "CadGrupoProduto")';
-        var url_recuparar_produto = '@Url.Action("RecuperarGrupoProduto", "CadGrupoProduto")';
-        var url_grupo_produto_pagina = '@Url.Action("GrupoProdutoPagina", "CadGrupoProduto")';
-        var url_salvar_grupo_produto = '@Url.Action("salvarGrupoProduto", "CadGrupoProduto")';
-         var url_filtro_change = '@Url.Action("GrupoProdutoPagina", "CadGrupoProduto")';
-        var url_grupo_produto_p = '@Url.Action("GrupoProdutoPagina", "CadGrupoProduto")';
+        var url_exclusao_produto = '@Url.Action("ExcluirCadMarcaProduto", "CadMarcaProduto")';
+        var url_recuparar_produto = '@Url.Action("RecuperarCadMarcaProduto", "CadMarcaProduto")';
+        var url_grupo_produto_pagina = '@Url.Action("CadMarcaProdutoPagina", "CadMarcaProduto")';
+        var url_salvar_grupo_produto = '@Url.Action("salvarCadMarcaProduto", "CadMarcaProduto")';
+        var url_grupo_produto_p = '@Url.Action("CadMarcaProdutoPagina", "CadMarcaProduto")';
     </script>
 }
-
-

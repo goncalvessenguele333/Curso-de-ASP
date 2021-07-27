@@ -1,0 +1,56 @@
+﻿body {
+    background-color: #f45b69;
+    font-family: sans-serif;
+}
+#loginForm {
+    overflow: hidden;
+    background-color: white;
+    padding: 40px 30px 30px 30px;
+    border-radius: 10px;
+    position: absolute;
+    top: 20%;
+    left: 35%;
+    width: 500px;
+}
+
+::before {
+    left: 40%;
+    bottom: -130%; 
+}
+
+::after {
+    left: 35%;
+    bottom: -125%;    
+}
+
+.input {
+    font-family: sans-serif;
+    display: block;
+    border-radius: 5px;
+    font-size: 16px;
+    background: white;
+    width: 100%;
+    border: 1px solid #808080;
+    padding: 10px 10px;
+    margin: 15px 0px;
+}
+
+.btn-success {
+    font-family: sans-serif;
+    cursor: pointer;
+    color: #fff;
+    font-size: 16px;
+    text-transform: uppercase;
+    width: 80px;
+    border: 0;
+    padding: 10px 0;
+    margin-top: 10px;
+    margin-left: -5px;
+    border-radius: 5px;
+    background-color: #f45b69;
+}
+
+
+.control-label {
+    margin: 15px 0px;
+}

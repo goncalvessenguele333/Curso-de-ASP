@@ -8,19 +8,20 @@ using ControleDeEstoque.Web.Models;
 namespace ControleDeEstoque.Web.Controllers
 {
     [Authorize(Roles = "Gerente, Administrativo, Operador")]
-    public class CadGrupoProdutoController : Controller
+    public class CadProvinciasController : Controller
     {
-      
+        // GET: Grafico
         private const int _quantidadeMaximaDeLinhaPorPagina = 5;
         // GET: Cadastro
-   
+
         public ActionResult Index()
         {
+            ViewBag.Paises = PaisModel.RecuperarPaisActivos();
             ViewBag.ListaTamPag = new SelectList(new int[] { _quantidadeMaximaDeLinhaPorPagina, 10, 15, 20 }, _quantidadeMaximaDeLinhaPorPagina);
             ViewBag.QuantidadeMaximaDeLinhaPorPagina = _quantidadeMaximaDeLinhaPorPagina;
             ViewBag.PaginaActual = 1;
-            var lista= GrupoProdutoModel.RecuperarLista(ViewBag.PaginaActual,_quantidadeMaximaDeLinhaPorPagina);
-            var quant = GrupoProdutoModel.RecuperarQuantidade();
+            var lista = ProvinciasModel.RecuperarLista(ViewBag.PaginaActual, _quantidadeMaximaDeLinhaPorPagina);
+            var quant = ProvinciasModel.RecuperarQuantidade();
 
             var difQuantPagina = (quant % ViewBag.QuantidadeMaximaDeLinhaPorPagina) > 0 ? 1 : 0;
             ViewBag.QuantPagina = (quant / ViewBag.QuantidadeMaximaDeLinhaPorPagina) + difQuantPagina;
@@ -28,37 +29,45 @@ namespace ControleDeEstoque.Web.Controllers
             return View(lista);
         }
         [HttpPost]
-  
+
         [ValidateAntiForgeryToken]
-        public JsonResult GrupoProdutoPagina(int pagina, int tamPag, string filtro)
+        public JsonResult CadProvinciasPagina(int pagina, int tamPag, string filtro)
         {
-            var lista = GrupoProdutoModel.RecuperarLista(pagina, tamPag, filtro);
+            var lista = ProvinciasModel.RecuperarLista(pagina, tamPag, filtro);
+
+            return Json(lista);
+        }
+
+        public JsonResult RecuperarProvinciasPais(int idpais)
+        {
+            var lista = ProvinciasModel.RecuperarListaPais(id_pais: idpais);
 
             return Json(lista);
         }
 
 
         [HttpPost]
-     
+
         [ValidateAntiForgeryToken]
-        public JsonResult RecuperarGrupoProduto(int id){
-    
-           return Json(GrupoProdutoModel.RecuperarPeloId(id));
+        public JsonResult RecuperarCadProvincias(int id)
+        {
+
+            return Json(ProvinciasModel.RecuperarPeloId(id));
         }
 
         [HttpPost]
-     
+
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Gerente, Administrativo")]
-        public JsonResult ExcluirGrupoProduto(int id)
+        public JsonResult ExcluirCadProvincias(int id)
         {
-           return Json(GrupoProdutoModel.ExcluirPeloId(id));
+            return Json(ProvinciasModel.ExcluirPeloId(id));
         }
 
         [HttpPost]
-       
+
         [ValidateAntiForgeryToken]
-        public JsonResult salvarGrupoProduto(GrupoProdutoModel model)
+        public JsonResult salvarCadProvincias(ProvinciasModel model)
         {
             var resultado = "Ok";
             var mensagens = new List<string>();
@@ -80,20 +89,18 @@ namespace ControleDeEstoque.Web.Controllers
                     else
                     {
                         resultado = "ERRO";
-                    }                                      
+                    }
                 }
                 catch (Exception)
                 {
                     resultado = "ERRO";
                 }
-              
+
             }
-            
-            return Json(new { Resultado=resultado, Mensagens=mensagens,IdSalvo=idSalvo});
+
+            return Json(new { Resultado = resultado, Mensagens = mensagens, IdSalvo = idSalvo });
         }
 
-
-       
 
     }
 }
